@@ -6,7 +6,7 @@ package edu.upc.epsevg.prop.hex.players;
 
 /**
  *
- * @author pedro
+ * @author pedro reis proves
  */
 public class ProvaPlayer {
     
