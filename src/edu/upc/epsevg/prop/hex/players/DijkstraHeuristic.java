@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  *
- * @author pedro
+ * @author pedroA
  */
 public class DijkstraHeuristic {
 

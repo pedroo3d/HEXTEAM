@@ -25,6 +25,7 @@ public class HEXTEAM implements IPlayer, IAuto {
     private final Map<Long, TranspositionEntry> transpositionTable; // taula de transposició
     private long startTime;             // temps d'inici
     private long timeoutMillis;         // temps límit en milisegons 
+    private List<Integer> depthsExplored; 
 
     /**
      * Constructor de la classe HEXTEAM
@@ -39,35 +40,33 @@ public class HEXTEAM implements IPlayer, IAuto {
         this.heuristic = new DijkstraHeuristic();
         this.transpositionTable = new HashMap<>();
         this.timeoutMillis = timeoutMillis;
+        this.depthsExplored = new ArrayList<>();
     }
- 
-    /**
-     * Retorna el moviment seleccionat, utilitzant la cerca iterativa aprofundida (IDS).
-     * @param joc
-     * @return  PlayerMove
-     */ 
+
     @Override
     public PlayerMove move(HexGameStatus joc) {
-        timeout = false; 
+        timeout = false;
         nodesExplored = 0;
         transpositionTable.clear();
         startTime = System.currentTimeMillis();
- 
+
         Point millorMoviment = null;
         int profunditatActual = 1;
- 
-        // Es va incrementant la profunditat fins al límit o fins que expiri el temps
-        while (!timeout && profunditatActual <= maxDepth) { 
+
+        // Bucle de IDS
+        while (!timeout && profunditatActual <= maxDepth) {
+            long currentTime = System.currentTimeMillis() - startTime;
             try {
                 millorMoviment = cercaMillorMoviment(joc, profunditatActual);
+                depthsExplored.add(profunditatActual); // Registrar la profunditat explorada
             } catch (ExcepcioTempsEsgotat e) {
-                break; // S'ha acabat el temps
-            } 
+                break;
+            }
             profunditatActual++;
         }
- 
+
         return new PlayerMove(millorMoviment, nodesExplored, profunditatActual - 1, SearchType.MINIMAX_IDS);
-    } 
+    }
  
     /** 
      * Cerca el millor moviment per a un nivell de profunditat concret.
@@ -104,7 +103,9 @@ public class HEXTEAM implements IPlayer, IAuto {
         }
         return millorMoviment;
     }
- 
+     public List<Integer> getDepthsExplored() {
+        return depthsExplored;
+    }
     /** 
      * Implementació de Minimax amb poda alfa-beta i taula de transposició.
      * @throws ExcepcioTempsEsgotat si s'excedeix el temps límit

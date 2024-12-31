@@ -31,14 +31,14 @@ public class HeadlessGame {
 
         IPlayer player1 = new RandomPlayer("Paco");
        // IPlayer player1 = new H_E_X_Player(2/*GB*/);  
-         IPlayer player2 = new PlayerMinimax(3, PlayerType.PLAYER2);
+      //   IPlayer player2 = new PlayerMinimax(3, PlayerType.PLAYER2);
            // Jugador 1: HEXTEAM
-       //  IPlayer player2 = new HEXTEAM(3, PlayerType.PLAYER2, 9000 /* Timeout en milisegundos */);
+         IPlayer player2 = new HEXTEAM(3, PlayerType.PLAYER2, 9000 /* Timeout en milisegundos */);
     
         
    //     IPlayer player2 = new H_E_X_Player(2/*GB*/);
         
-        HeadlessGame game = new HeadlessGame(player1, player2, 9, 5/*s timeout*/, 10/*games*/);
+        HeadlessGame game = new HeadlessGame(player1, player2, 9, 5/*s timeout*/, 5/*games*/);
         GameResult gr = game.start();
         System.out.println(gr);
 
