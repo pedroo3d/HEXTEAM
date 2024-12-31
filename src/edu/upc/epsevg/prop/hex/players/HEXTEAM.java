@@ -44,7 +44,7 @@ public class HEXTEAM implements IPlayer, IAuto {
     /**
      * Retorna el moviment seleccionat, utilitzant la cerca iterativa aprofundida (IDS).
      * @param joc
-     * @return  
+     * @return  PlayerMove
      */ 
     @Override
     public PlayerMove move(HexGameStatus joc) {
@@ -67,8 +67,8 @@ public class HEXTEAM implements IPlayer, IAuto {
         }
  
         return new PlayerMove(millorMoviment, nodesExplored, profunditatActual - 1, SearchType.MINIMAX_IDS);
-    }
-
+    } 
+ 
     /** 
      * Cerca el millor moviment per a un nivell de profunditat concret.
      * @throws ExcepcioTempsEsgotat si s'excedeix el temps límit
@@ -232,7 +232,7 @@ public class HEXTEAM implements IPlayer, IAuto {
             this.depth = depth;
         }
     }
-
+ 
     /**
      * Excepció personalitzada per indicar que el temps s'ha esgotat.
      */
